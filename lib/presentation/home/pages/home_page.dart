@@ -37,14 +37,14 @@ class _HomePageState extends State<HomePage> {
             children: [
               MenuHome(
                 imagePath: Assets.images.menu.aboutUs.path,
-                label: 'About Us',
+                label: 'Tentang Kami',
                 onPressed: () {
                   // context.push(const AboutUsPage());
                 },
               ),
               MenuHome(
                 imagePath: Assets.images.menu.tips.path,
-                label: 'Tips & Tricks ',
+                label: 'Tips & Trik',
                 onPressed: () {
                   // context.push(const TipsAndTricksPage());
                 },
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
               ),
               MenuHome(
                 imagePath: Assets.images.menu.quiz.path,
-                label: 'Quiz',
+                label: 'Kuis',
                 onPressed: () {
                   // context.push(const QuizListPage());
                 },

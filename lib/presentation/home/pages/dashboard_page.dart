@@ -46,7 +46,7 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             NavMenu(
               iconPath: Assets.icons.home.path,
-              label: 'Home',
+              label: 'Dasbor',
               isActive: _selectedIndex == 0,
               onPressed: () => _onItemTapped(0),
             ),
@@ -58,13 +58,13 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             NavMenu(
               iconPath: Assets.icons.bell.path,
-              label: 'Notification',
+              label: 'Notifikasi',
               isActive: _selectedIndex == 2,
               onPressed: () => _onItemTapped(2),
             ),
             NavMenu(
               iconPath: Assets.icons.user.path,
-              label: 'Profile',
+              label: 'Profil',
               isActive: _selectedIndex == 3,
               onPressed: () => _onItemTapped(3),
             ),

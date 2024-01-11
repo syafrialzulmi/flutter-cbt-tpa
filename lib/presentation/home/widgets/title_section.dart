@@ -29,7 +29,7 @@ class TitleSection extends StatelessWidget {
           InkWell(
             onTap: onSeeAllTap,
             child: const Text(
-              'See all',
+              'Selengkapnya',
               style: TextStyle(
                 color: AppColors.blue,
                 fontSize: 14,

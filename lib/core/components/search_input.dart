@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 
-
-
 class SearchInput extends StatelessWidget {
   final TextEditingController controller;
   final Function(String value)? onChanged;
@@ -30,7 +28,7 @@ class SearchInput extends StatelessWidget {
         controller: controller,
         onChanged: onChanged,
         decoration: InputDecoration(
-          hintText: 'Search',
+          hintText: 'Pencarian',
           prefixIcon: const Icon(
             Icons.search,
             color: AppColors.primary,
