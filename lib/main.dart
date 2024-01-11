@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cbt_tpa/presentation/auth/bloc/register/register_bloc.dart';
 import 'package:flutter_cbt_tpa/presentation/onboarding/pages/onboarding_page.dart';
 
 void main() {
@@ -10,13 +12,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo CBT Tes Potensi Akademik | Syafrial Zulmi',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return BlocProvider(
+      create: (context) => RegisterBloc(),
+      child: MaterialApp(
+        title: 'Flutter Demo CBT Tes Potensi Akademik | Syafrial Zulmi',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const OnboardingPage(),
       ),
-      home: const OnboardingPage(),
     );
   }
 }
