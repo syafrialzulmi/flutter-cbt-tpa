@@ -9,13 +9,14 @@ import 'package:flutter_cbt_tpa/data/models/responses/auth_response_model.dart';
 class AuthRemoteDatasource {
   Future<Either<String, AuthResponseModel>> register(
       RegisterRequestModel registerRequestModel) async {
-    final response =
-        await http.post(Uri.parse('${Variables.baseUrl}/api/register'),
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: registerRequestModel.toJson());
-
+    final response = await http.post(
+      Uri.parse('${Variables.baseUrl}/api/register'),
+      headers: <String, String>{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: registerRequestModel.toJson(),
+    );
     if (response.statusCode == 200) {
       return Right(AuthResponseModel.fromJson(response.body));
     } else {
@@ -28,7 +29,8 @@ class AuthRemoteDatasource {
     final response = await http.post(
         Uri.parse('${Variables.baseUrl}/api/logout'),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': 'Bearer ${authData.accessToken}',
         });
     if (response.statusCode == 200) {
@@ -43,13 +45,14 @@ class AuthRemoteDatasource {
     final response =
         await http.post(Uri.parse('${Variables.baseUrl}/api/login'),
             headers: <String, String>{
-              'COntent-Type': 'application/json; charset=UTF-8',
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
             },
             body: loginRequestModel.toJson());
     if (response.statusCode == 200) {
       return Right(AuthResponseModel.fromJson(response.body));
     } else {
-      return const Left("Logout Gagal");
+      return const Left("Login Gagal");
     }
   }
 }

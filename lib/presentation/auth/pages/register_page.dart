@@ -4,6 +4,7 @@ import 'package:flutter_cbt_tpa/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_cbt_tpa/data/models/request/register_request_model.dart';
 import 'package:flutter_cbt_tpa/presentation/auth/bloc/register/register_bloc.dart';
 import 'package:flutter_cbt_tpa/presentation/home/pages/dashboard_page.dart';
+
 import '../../../core/extensions/build_context_ext.dart';
 import '../../../presentation/auth/pages/login_page.dart';
 
@@ -21,7 +22,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
-  final usernameController = TextEditingController();
+  final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -42,8 +43,8 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           const SizedBox(height: 16.0),
           CustomTextField(
-            controller: usernameController,
-            label: 'Username',
+            controller: nameController,
+            label: 'Name',
           ),
           const SizedBox(height: 16.0),
           CustomTextField(
@@ -72,10 +73,18 @@ class _RegisterPageState extends State<RegisterPage> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Register Success'),
-                      backgroundColor: Colors.green,
+                      backgroundColor: AppColors.lightGreen,
                     ),
                   );
                   context.pushReplacement(const DashboardPage());
+                },
+                error: (message) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(message),
+                      backgroundColor: AppColors.lightRed,
+                    ),
+                  );
                 },
               );
             },
@@ -85,25 +94,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   return Button.filled(
                     onPressed: () {
                       final dataRequest = RegisterRequestModel(
-                        name: usernameController.text,
+                        name: nameController.text,
                         email: emailController.text,
                         phone: phoneController.text,
                         password: passwordController.text,
                       );
-
                       context
                           .read<RegisterBloc>()
                           .add(RegisterEvent.register(dataRequest));
-                      // Future.delayed(
-                      //   const Duration(seconds: 2),
-                      //   () => context.pushReplacement(const LoginPage()),
-                      // );
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (BuildContext context) {
-                      //     return const RegisterSuccessDialog();
-                      //   },
-                      // );
                     },
                     label: 'REGISTER',
                   );

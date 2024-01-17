@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cbt_tpa/data/datasources/auth_local_datasource.dart';
+import 'package:flutter_cbt_tpa/data/models/request/login_request_model.dart';
+import 'package:flutter_cbt_tpa/presentation/auth/bloc/login/login_bloc.dart';
 
 import '../../../core/components/buttons.dart';
 import '../../../core/components/custom_text_field.dart';
@@ -52,11 +56,54 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           const SizedBox(height: 42.0),
-          Button.filled(
-            onPressed: () {
-              context.pushReplacement(const DashboardPage());
+          BlocConsumer<LoginBloc, LoginState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                orElse: () {},
+                success: (state) {
+                  AuthLocalDatasource().saveAuthData(state);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Login Success'),
+                      backgroundColor: AppColors.lightGreen,
+                    ),
+                  );
+                  context.pushReplacement(const DashboardPage());
+                },
+                error: (message) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(message),
+                      backgroundColor: AppColors.lightRed,
+                    ),
+                  );
+                },
+              );
             },
-            label: 'LOG IN',
+            builder: (context, state) {
+              return state.maybeWhen(
+                orElse: () {
+                  return Button.filled(
+                    onPressed: () {
+                      // context.pushReplacement(const DashboardPage());
+                      final dataRequest = LoginRequestModel(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                      context
+                          .read<LoginBloc>()
+                          .add(LoginEvent.login(dataRequest));
+                    },
+                    label: 'LOG IN',
+                  );
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              );
+            },
           ),
           const SizedBox(height: 24.0),
           GestureDetector(

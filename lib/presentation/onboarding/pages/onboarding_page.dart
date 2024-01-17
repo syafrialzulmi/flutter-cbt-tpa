@@ -7,6 +7,7 @@ import '../../../core/components/buttons.dart';
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/extensions/build_context_ext.dart';
 import '../../auth/pages/login_page.dart';
+import '../../../data/datasources/onboarding_local_datasource.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -79,7 +80,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     currentPage++;
                     setState(() {});
                   } else {
-                    // OnboardingLocalDatasource().saveOnboadingPassed();
+                    OnboardingLocalDatasource().saveOnboadingPassed();
                     navigate();
                   }
                 },
