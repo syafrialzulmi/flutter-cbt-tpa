@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_cbt_tpa/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_cbt_tpa/data/datasources/auth_remote_datasource.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -11,6 +12,7 @@ class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
     on<LogoutEvent>((event, emit) async {
       emit(const _Loading());
       final response = await AuthRemoteDatasource().logout();
+      AuthLocalDatasource().removeAuthData();
       response.fold(
         (l) => emit(_Error(l)),
         (r) => emit(const _Success()),

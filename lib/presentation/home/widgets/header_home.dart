@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cbt_tpa/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_cbt_tpa/data/models/responses/auth_response_model.dart';
@@ -32,11 +33,19 @@ class _HeaderHomeState extends State<HeaderHome> {
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-                child: Image.network(
-                  'https://i.pravatar.cc/200',
-                  width: 64.0,
-                  height: 64.0,
-                  fit: BoxFit.cover,
+                child: Center(
+                  child: CachedNetworkImage(
+                    imageUrl: 'https://i.pravatar.cc/200',
+                    width: 64.0,
+                    height: 64.0,
+                    fit: BoxFit.cover,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            CircularProgressIndicator(
+                                value: downloadProgress.progress),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
               ),
               const SizedBox(width: 16.0),
