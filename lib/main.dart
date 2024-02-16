@@ -4,6 +4,7 @@ import 'package:flutter_cbt_tpa/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_cbt_tpa/data/datasources/content_remote_datasource.dart';
 import 'package:flutter_cbt_tpa/data/datasources/materi_remote_datasource.dart';
 import 'package:flutter_cbt_tpa/data/datasources/onboarding_local_datasource.dart';
+import 'package:flutter_cbt_tpa/data/datasources/ujian_remote_datasource.dart';
 import 'package:flutter_cbt_tpa/data/models/responses/auth_response_model.dart';
 import 'package:flutter_cbt_tpa/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:flutter_cbt_tpa/presentation/auth/bloc/logout/logout_bloc.dart';
@@ -13,6 +14,8 @@ import 'package:flutter_cbt_tpa/presentation/home/bloc/content/content_bloc.dart
 import 'package:flutter_cbt_tpa/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter_cbt_tpa/presentation/materi/bloc/materi/materi_bloc.dart';
 import 'package:flutter_cbt_tpa/presentation/onboarding/pages/onboarding_page.dart';
+import 'package:flutter_cbt_tpa/presentation/quiz/bloc/create_ujian/create_ujian_bloc.dart';
+import 'package:flutter_cbt_tpa/presentation/quiz/bloc/ujian_by_kategori/ujian_by_kategori_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +42,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => MateriBloc(MateriRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => UjianByKategoriBloc(UjianRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => CreateUjianBloc(UjianRemoteDatasource()),
         ),
       ],
       child: MaterialApp(

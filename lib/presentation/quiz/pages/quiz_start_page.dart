@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cbt_tpa/presentation/quiz/bloc/ujian_by_kategori/ujian_by_kategori_bloc.dart';
 import '../../../core/extensions/build_context_ext.dart';
 
 import '../../../core/assets/assets.gen.dart';
@@ -23,21 +25,40 @@ class QuizStartPage extends StatefulWidget {
 
 class _QuizStartPageState extends State<QuizStartPage> {
   @override
-  Widget build(BuildContext context) {
-    int quizNumber = 6;
+  void initState() {
+    super.initState();
+    context
+        .read<UjianByKategoriBloc>()
+        .add(UjianByKategoriEvent.getUjianByKategori(widget.data.kategori));
+  }
 
+  int quizNumber = 1;
+
+  @override
+  Widget build(BuildContext context) {
     return CustomScaffold(
       appBarTitle: Text(widget.data.name),
       actions: [
         Assets.icons.clock.image(width: 24.0),
         const SizedBox(width: 8.0),
-        CountdownTimer(
-          duration: widget.data.duration,
-          onTimerCompletion: (timeRemaining) {
-            context.pushReplacement(QuizFinishPage(
-              data: widget.data,
-              timeRemaining: timeRemaining,
-            ));
+        BlocBuilder<UjianByKategoriBloc, UjianByKategoriState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              orElse: () {
+                return const SizedBox();
+              },
+              success: (e) {
+                return CountdownTimer(
+                  duration: e.timer,
+                  onTimerCompletion: (timeRemaining) {
+                    context.pushReplacement(QuizFinishPage(
+                      data: widget.data,
+                      timeRemaining: timeRemaining,
+                    ));
+                  },
+                );
+              },
+            );
           },
         ),
         IconButton(
@@ -62,20 +83,31 @@ class _QuizStartPageState extends State<QuizStartPage> {
               fontSize: 18,
             ),
           ),
-          Row(
-            children: [
-              Flexible(
-                child: LinearProgressIndicator(
-                  value: quizNumber / 25,
-                  color: AppColors.primary,
-                ),
-              ),
-              const SizedBox(width: 16.0),
-              Text(
-                '$quizNumber/25',
-                style: const TextStyle(fontSize: 16),
-              ),
-            ],
+          BlocBuilder<UjianByKategoriBloc, UjianByKategoriState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                orElse: () {
+                  return const SizedBox();
+                },
+                success: (e) {
+                  return Row(
+                    children: [
+                      Flexible(
+                        child: LinearProgressIndicator(
+                          value: 1 / e.data.length,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                      const SizedBox(width: 16.0),
+                      Text(
+                        '$quizNumber/${e.data.length}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
           const SizedBox(height: 16.0),
           const QuizMultipleChoice(),

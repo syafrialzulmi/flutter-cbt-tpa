@@ -26,6 +26,7 @@ class QuizResultPage extends StatelessWidget {
         description:
             'Tes angka adalah suatu jenis tes psikometri yang dirancang untuk mengukur kemampuan individu dalam memahami, menganalisis, dan menyelesaikan masalah yang melibatkan angka dan matematika.',
         duration: 30,
+        kategori: 'Numeric',
       ),
       QuizModel(
         image: Assets.images.materi2.path,
@@ -34,6 +35,7 @@ class QuizResultPage extends StatelessWidget {
         description:
             'Tes logika adalah metode evaluasi yang digunakan untuk mengukur kemampuan seseorang dalam berpikir secara logis, analitis, dan rasional',
         duration: 30,
+        kategori: 'Logika',
       ),
       QuizModel(
         image: Assets.images.materi1.path,
@@ -42,6 +44,7 @@ class QuizResultPage extends StatelessWidget {
         description:
             'Tes verbal adalah suatu metode evaluasi yang digunakan untuk mengukur kemampuan seseorang dalam menggunakan dan memahami bahasa lisan atau tertulis.',
         duration: 30,
+        kategori: 'Verbal',
       ),
     ];
 
