@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cbt_tpa/data/models/responses/materi_response_model.dart';
 
@@ -39,6 +38,7 @@ class MateriCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
                   child: Text(
@@ -52,20 +52,43 @@ class MateriCard extends StatelessWidget {
                 const SizedBox(width: 16.0),
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-                  child: Center(
-                    child: CachedNetworkImage(
-                      imageUrl: data.image,
-                      width: 100.0,
-                      height: 100.0,
+                  child: SizedBox(
+                    width: 100.0,
+                    height: 100.0,
+                    child: Image.network(
+                      data.image,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) {
+                          // Gambar telah dimuat
+                          return child;
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                      errorBuilder: (BuildContext context, Object error,
+                          StackTrace? stackTrace) {
+                        return const Icon(Icons.error);
+                      },
                       fit: BoxFit.cover,
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                              CircularProgressIndicator(
-                                  value: downloadProgress.progress),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
                     ),
                   ),
+                  // Center(
+                  //   child: CachedNetworkImage(
+                  //     imageUrl: data.image,
+                  //     width: 100.0,
+                  //     height: 100.0,
+                  //     fit: BoxFit.cover,
+                  //     progressIndicatorBuilder:
+                  //         (context, url, downloadProgress) =>
+                  //             CircularProgressIndicator(
+                  //                 value: downloadProgress.progress),
+                  //     errorWidget: (context, url, error) =>
+                  //         const Icon(Icons.error),
+                  //   ),
+                  // ),
                 ),
               ],
             ),

@@ -1,7 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cbt_tpa/core/extensions/build_context_ext.dart';
 import 'package:flutter_cbt_tpa/presentation/home/bloc/content/content_bloc.dart';
 
 import '../../../core/components/custom_scaffold.dart';
@@ -43,24 +41,37 @@ class _TipsAndTricksPageState extends State<TipsAndTricksPage> {
                   // Assets.images.menu.aboutUs.image(),
                   contentResponseModel.data.isEmpty
                       ? const SizedBox()
-                      : Center(
-                          child: CachedNetworkImage(
-                            imageUrl: contentResponseModel.data[0].image,
-                            width: context.deviceWidth,
-                            height: 470.0,
-                            fit: BoxFit.cover,
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    CircularProgressIndicator(
-                                        value: downloadProgress.progress),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
+                      : Image.network(
+                          contentResponseModel.data[0].image,
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) {
+                              // Gambar telah dimuat
+                              return child;
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          },
+                          errorBuilder: (BuildContext context, Object error,
+                              StackTrace? stackTrace) {
+                            return const Icon(Icons.error);
+                          },
+                          fit: BoxFit.cover,
                         ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(30.0, 0, 30.0, 30.0),
                     child: Text(
                       contentResponseModel.data[0].title,
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(fontSize: 18.0),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(30.0, 0, 30.0, 30.0),
+                    child: Text(
+                      contentResponseModel.data[0].content,
                       textAlign: TextAlign.justify,
                       style: const TextStyle(fontSize: 18.0),
                     ),

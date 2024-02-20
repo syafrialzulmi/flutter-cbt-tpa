@@ -20,16 +20,24 @@ class MateriDetailPage extends StatelessWidget {
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(30.0),
             ),
-            child: Center(
-              child: CachedNetworkImage(
-                imageUrl: data.image,
-                width: context.deviceWidth,
-                height: 470.0,
-                fit: BoxFit.cover,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    CircularProgressIndicator(value: downloadProgress.progress),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
+            child: Image.network(
+              data.image,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) {
+                  // Gambar telah dimuat
+                  return child;
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+              errorBuilder:
+                  (BuildContext context, Object error, StackTrace? stackTrace) {
+                return const Icon(Icons.error);
+              },
+              fit: BoxFit.cover,
             ),
           ),
           Padding(
@@ -38,7 +46,7 @@ class MateriDetailPage extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  data.content,
+                  data.title,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 32,
@@ -47,7 +55,7 @@ class MateriDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 14.0),
                 Text(
-                  data.title,
+                  data.content,
                   textAlign: TextAlign.center,
                 ),
               ],

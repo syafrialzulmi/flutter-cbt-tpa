@@ -34,7 +34,7 @@ class _QuizListPageState extends State<QuizListPage> {
         description:
             'Tes angka adalah suatu jenis tes psikometri yang dirancang untuk mengukur kemampuan individu dalam memahami, menganalisis, dan menyelesaikan masalah yang melibatkan angka dan matematika.',
         duration: 30,
-        kategori: 'Numeric',
+        kategori: 'Angka',
       ),
       QuizModel(
           image: Assets.images.quizCategory.path,

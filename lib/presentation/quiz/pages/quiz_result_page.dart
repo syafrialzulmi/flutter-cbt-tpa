@@ -26,7 +26,7 @@ class QuizResultPage extends StatelessWidget {
         description:
             'Tes angka adalah suatu jenis tes psikometri yang dirancang untuk mengukur kemampuan individu dalam memahami, menganalisis, dan menyelesaikan masalah yang melibatkan angka dan matematika.',
         duration: 30,
-        kategori: 'Numeric',
+        kategori: 'Angka',
       ),
       QuizModel(
         image: Assets.images.materi2.path,
