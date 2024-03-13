@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cbt_tpa/presentation/quiz/bloc/daftar_soal/daftar_soal_bloc.dart';
-import 'package:flutter_cbt_tpa/presentation/quiz/bloc/hitung_nilai/hitung_nilai_bloc.dart';
 import 'package:flutter_cbt_tpa/presentation/quiz/bloc/ujian_by_kategori/ujian_by_kategori_bloc.dart';
 import '../../../core/extensions/build_context_ext.dart';
 
@@ -117,42 +116,31 @@ class _QuizStartPageState extends State<QuizStartPage> {
               fontSize: 18,
             ),
           ),
-          BlocListener<HitungNilaiBloc, HitungNilaiState>(
-            listener: (context, state) {
-              state.maybeWhen(
-                orElse: () {},
-                success: (nilai) {
-                  context.pushReplacement(
-                      QuizFinishPage(data: widget.data, timeRemaining: 0));
+          BlocBuilder<DaftarSoalBloc, DaftarSoalState>(
+            builder: (context, state) {
+              return state.maybeMap(
+                orElse: () {
+                  return const SizedBox();
+                },
+                success: (e) {
+                  return Row(
+                    children: [
+                      Flexible(
+                        child: LinearProgressIndicator(
+                          value: (e.index + 1) / e.data.length,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                      const SizedBox(width: 16.0),
+                      Text(
+                        '${e.index + 1}/${e.data.length}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  );
                 },
               );
             },
-            child: BlocBuilder<DaftarSoalBloc, DaftarSoalState>(
-              builder: (context, state) {
-                return state.maybeMap(
-                  orElse: () {
-                    return const SizedBox();
-                  },
-                  success: (e) {
-                    return Row(
-                      children: [
-                        Flexible(
-                          child: LinearProgressIndicator(
-                            value: (e.index + 1) / e.data.length,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                        const SizedBox(width: 16.0),
-                        Text(
-                          '${e.index + 1}/${e.data.length}',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
           ),
           const SizedBox(height: 16.0),
           QuizMultipleChoice(kategori: widget.data.kategori),

@@ -130,6 +130,9 @@ class _QuizMultipleChoiceState extends State<QuizMultipleChoice> {
                               context
                                   .read<DaftarSoalBloc>()
                                   .add(const DaftarSoalEvent.nextSoal());
+                              setState(() {
+                                jawaban = '';
+                              });
                             },
                             label: 'Selanjutnya',
                           )
@@ -140,6 +143,9 @@ class _QuizMultipleChoiceState extends State<QuizMultipleChoice> {
                                       data[index].id, jawaban));
                               context.read<HitungNilaiBloc>().add(
                                   HitungNilaiEvent.getNilai(widget.kategori));
+                              setState(() {
+                                jawaban = '';
+                              });
                             },
                             label: 'Selesai',
                           ),

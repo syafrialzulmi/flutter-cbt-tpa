@@ -5,7 +5,7 @@ class HitungNilaiState with _$HitungNilaiState {
   const factory HitungNilaiState.initial() = _Initial;
   const factory HitungNilaiState.loading() = _Loading;
   const factory HitungNilaiState.success(
-    int nilai,
+    NilaiResponseModel nilaiResponseModel,
   ) = _Success;
   const factory HitungNilaiState.error(String message) = _Error;
 }

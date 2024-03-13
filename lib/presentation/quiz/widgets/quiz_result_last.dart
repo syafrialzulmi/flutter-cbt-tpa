@@ -1,17 +1,28 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+
+import 'package:flutter_cbt_tpa/data/models/responses/nilai_response_model.dart';
+import 'package:flutter_cbt_tpa/presentation/quiz/models/quiz_model.dart';
 
 import '../../../core/constants/colors.dart';
 import 'result_value.dart';
 
 class QuizResultLast extends StatelessWidget {
-  const QuizResultLast({super.key});
+  final QuizModel data;
+  final NilaiResponseModel dataNilai;
+
+  const QuizResultLast({
+    Key? key,
+    required this.data,
+    required this.dataNilai,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const correct = 23;
-    const wrong = 12;
-    const totalQuestion = correct + wrong;
+    int correct = dataNilai.benar;
+    int wrong = dataNilai.salah;
+    int totalQuestion = correct + wrong;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -41,21 +52,21 @@ class QuizResultLast extends StatelessWidget {
           ),
           child: Row(
             children: [
-              const Flexible(
+              Flexible(
                 flex: 1,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Semua Tes',
-                      style: TextStyle(
+                      data.name,
+                      style: const TextStyle(
                         fontSize: 21,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    SizedBox(height: 18.0),
+                    const SizedBox(height: 18.0),
                     ResultValue.correct(correct),
-                    SizedBox(height: 18.0),
+                    const SizedBox(height: 18.0),
                     ResultValue.wrong(wrong),
                   ],
                 ),

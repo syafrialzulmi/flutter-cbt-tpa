@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
+import 'package:flutter_cbt_tpa/data/models/responses/nilai_response_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:flutter_cbt_tpa/data/datasources/ujian_remote_datasource.dart';
@@ -14,9 +15,12 @@ class HitungNilaiBloc extends Bloc<HitungNilaiEvent, HitungNilaiState> {
     this.ujianRemoteDatasource,
   ) : super(const _Initial()) {
     on<_GetNilai>((event, emit) async {
-      emit(const _Loading());
+      emit(const HitungNilaiState.loading());
       final response = await ujianRemoteDatasource.hitungNilai(event.kategori);
-      emit(const _Success(100));
+      response.fold(
+        (l) => emit(HitungNilaiState.error(l)),
+        (r) => emit(HitungNilaiState.success(r)),
+      );
     });
   }
 }

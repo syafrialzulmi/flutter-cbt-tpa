@@ -1,16 +1,37 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import '../../../core/extensions/build_context_ext.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cbt_tpa/presentation/quiz/bloc/hitung_nilai/hitung_nilai_bloc.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/buttons.dart';
 import '../../../core/components/custom_scaffold.dart';
 import '../../../core/constants/colors.dart';
+import '../../../core/extensions/build_context_ext.dart';
 import '../models/quiz_model.dart';
 import '../widgets/quiz_available_card.dart';
 import '../widgets/quiz_result_last.dart';
 
-class QuizResultPage extends StatelessWidget {
-  const QuizResultPage({super.key});
+class QuizResultPage extends StatefulWidget {
+  final QuizModel data;
+
+  const QuizResultPage({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  @override
+  State<QuizResultPage> createState() => _QuizResultPageState();
+}
+
+class _QuizResultPageState extends State<QuizResultPage> {
+  @override
+  void initState() {
+    super.initState();
+    context
+        .read<HitungNilaiBloc>()
+        .add(HitungNilaiEvent.getNilai(widget.data.kategori));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +70,29 @@ class QuizResultPage extends StatelessWidget {
     ];
 
     return CustomScaffold(
-      appBarTitle: const Text('Hasil Tes'),
+      appBarTitle: Text('Hasil ${widget.data.name}'),
       body: ListView(
         children: [
           const SizedBox(height: 30.0),
-          const Padding(
+          Padding(
             padding: paddingHorizontal,
-            child: QuizResultLast(),
+            child: BlocBuilder<HitungNilaiBloc, HitungNilaiState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                  success: (nilaiResponseModel) {
+                    return QuizResultLast(
+                      data: widget.data,
+                      dataNilai: nilaiResponseModel,
+                    );
+                  },
+                );
+              },
+            ),
           ),
           const SizedBox(height: 40.0),
           const Padding(

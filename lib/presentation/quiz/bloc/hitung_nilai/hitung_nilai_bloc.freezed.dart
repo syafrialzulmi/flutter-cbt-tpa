@@ -316,7 +316,7 @@ mixin _$HitungNilaiState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int nilai) success,
+    required TResult Function(NilaiResponseModel nilaiResponseModel) success,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -324,7 +324,7 @@ mixin _$HitungNilaiState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int nilai)? success,
+    TResult? Function(NilaiResponseModel nilaiResponseModel)? success,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -332,7 +332,7 @@ mixin _$HitungNilaiState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int nilai)? success,
+    TResult Function(NilaiResponseModel nilaiResponseModel)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -422,7 +422,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int nilai) success,
+    required TResult Function(NilaiResponseModel nilaiResponseModel) success,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -433,7 +433,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int nilai)? success,
+    TResult? Function(NilaiResponseModel nilaiResponseModel)? success,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -444,7 +444,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int nilai)? success,
+    TResult Function(NilaiResponseModel nilaiResponseModel)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -536,7 +536,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int nilai) success,
+    required TResult Function(NilaiResponseModel nilaiResponseModel) success,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -547,7 +547,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int nilai)? success,
+    TResult? Function(NilaiResponseModel nilaiResponseModel)? success,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -558,7 +558,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int nilai)? success,
+    TResult Function(NilaiResponseModel nilaiResponseModel)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -616,7 +616,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int nilai});
+  $Res call({NilaiResponseModel nilaiResponseModel});
 }
 
 /// @nodoc
@@ -630,13 +630,13 @@ class __$$SuccessImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? nilai = null,
+    Object? nilaiResponseModel = freezed,
   }) {
     return _then(_$SuccessImpl(
-      null == nilai
-          ? _value.nilai
-          : nilai // ignore: cast_nullable_to_non_nullable
-              as int,
+      freezed == nilaiResponseModel
+          ? _value.nilaiResponseModel
+          : nilaiResponseModel // ignore: cast_nullable_to_non_nullable
+              as NilaiResponseModel,
     ));
   }
 }
@@ -644,14 +644,14 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(this.nilai);
+  const _$SuccessImpl(this.nilaiResponseModel);
 
   @override
-  final int nilai;
+  final NilaiResponseModel nilaiResponseModel;
 
   @override
   String toString() {
-    return 'HitungNilaiState.success(nilai: $nilai)';
+    return 'HitungNilaiState.success(nilaiResponseModel: $nilaiResponseModel)';
   }
 
   @override
@@ -659,11 +659,13 @@ class _$SuccessImpl implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl &&
-            (identical(other.nilai, nilai) || other.nilai == nilai));
+            const DeepCollectionEquality()
+                .equals(other.nilaiResponseModel, nilaiResponseModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, nilai);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(nilaiResponseModel));
 
   @JsonKey(ignore: true)
   @override
@@ -676,10 +678,10 @@ class _$SuccessImpl implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int nilai) success,
+    required TResult Function(NilaiResponseModel nilaiResponseModel) success,
     required TResult Function(String message) error,
   }) {
-    return success(nilai);
+    return success(nilaiResponseModel);
   }
 
   @override
@@ -687,10 +689,10 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int nilai)? success,
+    TResult? Function(NilaiResponseModel nilaiResponseModel)? success,
     TResult? Function(String message)? error,
   }) {
-    return success?.call(nilai);
+    return success?.call(nilaiResponseModel);
   }
 
   @override
@@ -698,12 +700,12 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int nilai)? success,
+    TResult Function(NilaiResponseModel nilaiResponseModel)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(nilai);
+      return success(nilaiResponseModel);
     }
     return orElse();
   }
@@ -747,9 +749,10 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements HitungNilaiState {
-  const factory _Success(final int nilai) = _$SuccessImpl;
+  const factory _Success(final NilaiResponseModel nilaiResponseModel) =
+      _$SuccessImpl;
 
-  int get nilai;
+  NilaiResponseModel get nilaiResponseModel;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -821,7 +824,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int nilai) success,
+    required TResult Function(NilaiResponseModel nilaiResponseModel) success,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -832,7 +835,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int nilai)? success,
+    TResult? Function(NilaiResponseModel nilaiResponseModel)? success,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -843,7 +846,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int nilai)? success,
+    TResult Function(NilaiResponseModel nilaiResponseModel)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

@@ -57,24 +57,26 @@ class AnswerChoices extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
           color: isSelected ? AppColors.lightGreen : AppColors.white,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
+            Flexible(
+              child: Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
             Container(
               width: 24,
               height: 24,
               decoration: ShapeDecoration(
-                color: isSelected ? AppColors.lightRed : AppColors.white,
+                color: isSelected ? AppColors.primary : AppColors.white,
                 shape: OvalBorder(
                   side: BorderSide(
                       width: isSelected ? 0 : 2, color: AppColors.primary),
